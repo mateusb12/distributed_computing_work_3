@@ -1,9 +1,10 @@
 import os
 import time
 import requests
-
-from nabor.automated_stress_test.docker_utils import get_running_containers_dataframe
-from nabor.automated_stress_test.global_variables import DOCKER_COMPOSE_LOCATION
+import sys
+import fix_imports
+from automated_stress_test.docker_utils import get_running_containers_dataframe
+from automated_stress_test.global_variables import DOCKER_COMPOSE_LOCATION
 
 # Settings
 NUM_OF_USERS = [10, 100, 1000]
@@ -39,7 +40,7 @@ def test_nginx_connectivity():
 def run_single_locust_test(user_amount: int, instance_amount: int):
     os.chdir(DOCKER_COMPOSE_LOCATION)
     os.system("docker-compose up -d")
-    time.sleep(15)
+    time.sleep(10)
     csv_dir = os.path.join(DOCKER_COMPOSE_LOCATION, 'csvs')
     if not os.path.exists(csv_dir):
         os.makedirs(csv_dir)
@@ -56,11 +57,11 @@ def run_single_locust_test(user_amount: int, instance_amount: int):
 
 
 def run_all_locust_tests():
-    # load_tests = [10, 100, 1000]
-    load_tests = [1000]
+    load_tests = [10, 100]
+    # load_tests = [1000]
 
     for load in load_tests:
-        run_single_locust_test(load, 2)
+        run_single_locust_test(load, 1)
 
 
 def __main():
