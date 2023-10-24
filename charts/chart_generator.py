@@ -20,7 +20,7 @@ def create_chart(input_df, y_value_column, y_label, title, colors):
 
     for idx, container_count in enumerate(pivot_table.columns[1:]):
         ax.bar(x + idx * width, pivot_table[container_count].tolist(), width,
-               label=f'{container_count} instância(s)', color=colors[idx], edgecolor='black')
+               label=f'{container_count} instância(s)', color=colors[idx], edgecolor='black', zorder=3)
 
     ax.set_xlabel('Número de usuários')
     ax.set_ylabel(y_label)
@@ -28,6 +28,7 @@ def create_chart(input_df, y_value_column, y_label, title, colors):
     ax.set_xticks(x + width)
     ax.set_xticklabels(labels)
     ax.legend(loc="upper left")
+    ax.grid(True, which='both', linestyle='--', linewidth=0.6, alpha=0.7, zorder=0)
 
     fig.tight_layout()
     plt.show()
