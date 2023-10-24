@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Merger and Charts</title>
+    <link rel="stylesheet" href="app_style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>CSV Merger</h1>
+
+    <input type="file" id="folderInput" webkitdirectory>
+    <label for="folderInput" class="forBrowse">Browse Folder</label>
+
+    <!-- Added class 'merge' to the Merge CSVs button -->
+    <button class="button merge">Merge CSVs</button>
+
+    <h1>Charts</h1>
+    <!-- Added class 'generate' to the Generate Charts button -->
+    <button class="button generate">Generate Charts</button>
+
+    <img src="response_time_chart.png" alt="Chart Image" class="chart">
+    <img src="requisitions_per_second_chart.png" alt="Chart Image" class="chart">
+</div>
+
+</body>
+
+<script src="app_script.js"></script>
