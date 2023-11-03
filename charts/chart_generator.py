@@ -1,9 +1,10 @@
+from pathlib import Path
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-CSV_FILE = ("C:\\Users\\Mateus\\Desktop\\unifor\\computacao_distribuida\\docker_unifor\\final_results\\"
-            "csvs\\merged_history.csv")
+CSV_FILE = Path(Path.cwd().parent, "csvs/merged_history.csv")
 AGGREGATE_FUNCTION = 'median'
 
 
