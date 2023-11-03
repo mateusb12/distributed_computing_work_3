@@ -1,0 +1,71 @@
+services:
+  nginx:
+    image: nginx:1.19.0
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /var/www/html:/usr/share/nginx/html
+    depends_on:
+      - wordpress1
+      - wordpress2
+      - wordpress3
+  locust:
+    image: locustio/locust
+    environment:
+      LOCUST_FILE: locustfile.py
+      ATTACKED_HOST: http://nginx:80
+      LOCUST_OPTS: "-c 10 -r 10"
+    volumes:
+      - ./:/mnt/locust
+    ports: 
+     - "8089:8089"
+    command: -f /mnt/locust/locustfile.py
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql_fabio:/var/lib/mysql
+ 
+    environment:
+    - MYSQL_ROOT_PASSWORD=mypw
+    - MYSQL_DATABASE=wordpress
+    - MYSQL_USER=fabio
+    - MYSQL_PASSWORD=mypw
+   
+  wordpress1:
+    image: wordpress:5.4.2-php7.2-apache
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: fabio
+      WORDPRESS_DB_PASSWORD: mypw
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - mysql
+    volumes:
+      - /var/www/html:/var/www/html
+  wordpress2:
+    image: wordpress:5.4.2-php7.2-apache
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: fabio
+      WORDPRESS_DB_PASSWORD: mypw
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - mysql
+    volumes:
+      - /var/www/html:/var/www/html
+
+  wordpress3:
+    image: wordpress:5.4.2-php7.2-apache
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: fabio
+      WORDPRESS_DB_PASSWORD: mypw
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - mysql
+    volumes:
+      - /var/www/html:/var/www/html
+
+volumes:
+  mysql_fabio:
